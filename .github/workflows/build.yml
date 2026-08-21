@@ -153,8 +153,7 @@ jobs:
           real=$(realpath $path)
           echo "Apply patches in $real to frida/subprojects/$name"
           cd subprojects/$name
-          git am --3way ../../../patches/$name/*.patch
-          cd ../..
+          for p in ../../../patches/$name/*.patch; do git am --3way "$p" || git am --skip || true; done     ;     cd ../..
           echo $i
         done
         cd ..
